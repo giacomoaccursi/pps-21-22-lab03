@@ -1,5 +1,7 @@
 package u03
 
+import scala.annotation.tailrec
+
 object Lists extends App:
 
   // A generic linkedlist
@@ -24,17 +26,30 @@ object Lists extends App:
 
 
     def drop[A](l: List[A], n: Int): List[A] = l match
-    case Cons(h,t) if n > 0 => drop(t, n - 1)
-    case Cons(h, t) => Cons(h, t)
-    case Nil() => Nil()
+      case Cons(h,t) if n > 0 => drop(t, n - 1)
+      case Cons(h, t) => Cons(h, t)
+      case Nil() => Nil()
 
     def append[A](left: List[A], right: List[A]): List[A] = left match
-    case Cons(h, t) => Cons(h, append(t, right))
-    case Nil() => right
+      case Cons(h, t) => Cons(h, append(t, right))
+      case Nil() => right
 
     def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] = l match
-    case Cons(h, t) => append(f(h), flatMap(t)(f))
-    case Nil() => Nil()
+      case Cons(h, t) => append(f(h), flatMap(t)(f))
+      case Nil() => Nil()
+
+    import u02.Optionals.*
+    import u02.Optionals.Option.*
+    def max(l: List[Int]): Option[Int] =
+      def _max(l1: List[Int], m: Option[Int]): Option[Int] = l1 match
+        case Cons(h, t) if h >= orElse(m, h)  => _max(t, Some(h))
+        case Cons(h, t) => _max(t, m)
+        case Nil() => m
+      _max(l, None())
+
+    import u02.AlgebraicDataTypes.*
+    def getCourseOfPersons(persons: List[Person]): List[String] = persons match
+      case Cons(h, t) =>
 
 
 
