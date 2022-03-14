@@ -27,6 +27,12 @@ object Lists extends App:
      case Cons(h, t) => Cons(h, t)
      case Nil() => Nil()
 
+    def append[A](left: List[A], right: List[A]): List[A] = left match
+      case Cons(h, t) => Cons(h, append(t, right))
+      case Nil() => right
+
+    def
+
 
 
   val l = List.Cons(10, List.Cons(20, List.Cons(30, List.Nil())))

@@ -25,3 +25,7 @@ class ListTest:
   @Test def testDrop() =
     assertEquals(Cons(20, Cons(30, Nil())), drop(l, 1))
     assertEquals(Cons(30, Nil()), drop(l, 2))
+
+  @Test def testAppend() =
+    val tail = Cons (40,Nil())
+    assertEquals(Cons(10, Cons(20, Cons(30, Cons(40, Nil())))), append(l, tail))
