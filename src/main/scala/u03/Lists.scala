@@ -31,7 +31,9 @@ object Lists extends App:
       case Cons(h, t) => Cons(h, append(t, right))
       case Nil() => right
 
-    def
+    def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] = l match
+      case Cons(h, t) => append(f(h), flatMap(t)(f))
+      case Nil() => Nil()
 
 
 
