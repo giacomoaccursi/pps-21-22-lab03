@@ -4,12 +4,11 @@
     <option name="customVMPath" />
     <option name="linkedExternalProjectsSettings">
       <SbtProjectSettings>
-        <option name="converterVersion" value="1" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/project" />
+            <option value="$USER_HOME$/Documents/uni/magistrale/ParadigmiDiProgettazione/lab/pps-21-22-lab03" />
+            <option value="$USER_HOME$/Documents/uni/magistrale/ParadigmiDiProgettazione/lab/pps-21-22-lab03/project" />
           </set>
         </option>
         <option name="sbtVersion" value="1.5.8" />

@@ -3,6 +3,7 @@ package u03
 import org.junit.*
 import org.junit.Assert.*
 import Lists.*
+import u03.Lists.List.{Cons, Nil, filter}
 
 class ListTest:
   import List.*
@@ -20,3 +21,7 @@ class ListTest:
   @Test def testFilter() =
     assertEquals(Cons(20, Cons(30, Nil())), filter(l)(_ >= 20))
     assertEquals(Cons(10, Cons(30, Nil())), filter(l)(_ != 20))
+
+  @Test def testDrop() =
+    assertEquals(Cons(20, Cons(30, Nil())), drop(l, 1))
+    assertEquals(Cons(30, Nil()), drop(l, 2))
