@@ -41,7 +41,6 @@ class ListTest:
     assertEquals(Some(25), max(Cons(10 ,Cons(25 ,Cons(20, Nil())))))
     assertEquals(None(), max(Nil()))
 
- /* @Test def testGetCourseOfPersons() =
+  @Test def testGetCourseOfPersons() =
     import u02.AlgebraicDataTypes.Person.*
-    assertEquals(Cons(Teacher("giacomo", "math"), Cons(Teacher("fabri", "storia"), getCourseOfPersons(Cons(Teacher("diego", "italiano"), Nil())))), getCourseOfPersons(Cons(Teacher("giacomo", "math"), Cons(Teacher("fabri", "storia"), Cons(Student("mauro", 2021), Cons(Student("fabrizio", 2022) ,Cons(Teacher("diego", "italiano") ,Nil())))))))
-*/
+    assertEquals(Cons("math",Cons("storia", Cons("italiano", Nil()))), getCourseOfPersons(Cons(Teacher("giacomo", "math"), Cons(Teacher("fabri", "storia"), Cons(Student("mauro", 2021), Cons(Student("fabrizio", 2022) ,Cons(Teacher("diego", "italiano") ,Nil())))))))

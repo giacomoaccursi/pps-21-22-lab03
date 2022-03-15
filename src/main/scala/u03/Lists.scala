@@ -46,11 +46,16 @@ object Lists extends App:
       case Cons(h, t) => max(t)
       case Nil() => None()
 
-    /*import u02.AlgebraicDataTypes.Person.*
+    import u02.AlgebraicDataTypes.Person.*
     import u02.AlgebraicDataTypes.*
     def getCourseOfPersons(persons: List[Person]): List[String] =
-      flatMap(persons, {case Cons(h, t) => h; case Student(name, year) => Nil()} )
-*/
+      flatMap(persons)({
+        case Teacher(name, course) => Cons(course, Nil())
+        case _ => Nil()
+      })
+
+
+
 
     //import List.*
     //val l = List.Cons(10, List.Cons(20, List.Cons(30, List.Nil())))
