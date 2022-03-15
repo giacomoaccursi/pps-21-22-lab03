@@ -1,5 +1,6 @@
 package u03
 
+import java.awt.font.TextAttribute
 import scala.annotation.tailrec
 
 object Lists extends App:
@@ -40,22 +41,23 @@ object Lists extends App:
 
     import u02.Optionals.*
     import u02.Optionals.Option.*
-    def max(l: List[Int]): Option[Int] =
-      def _max(l1: List[Int], m: Option[Int]): Option[Int] = l1 match
-        case Cons(h, t) if h >= orElse(m, h)  => _max(t, Some(h))
-        case Cons(h, t) => _max(t, m)
-        case Nil() => m
-      _max(l, None())
+    def max(l: List[Int]): Option[Int] = l match
+      case Cons(h, t) if h >= orElse(max(t), h) => Some(h)
+      case Cons(h, t) => max(t)
+      case Nil() => None()
 
+    /*import u02.AlgebraicDataTypes.Person.*
     import u02.AlgebraicDataTypes.*
-    def getCourseOfPersons(persons: List[Person]): List[String] = persons match
-      case Cons(h, t) =>
+    def getCourseOfPersons(persons: List[Person]): List[String] =
+      flatMap(persons, {case Cons(h, t) => h; case Student(name, year) => Nil()} )
+*/
 
+    //import List.*
+    //val l = List.Cons(10, List.Cons(20, List.Cons(30, List.Nil())))
 
+    //println(List.sum(l)) // 60
 
-    val l = List.Cons(10, List.Cons(20, List.Cons(30, List.Nil())))
-    println(List.sum(l)) // 60
+    //println(sum(map(filter(l)(_ >= 20))(_ + 1))) // 21+31 = 52
 
-    import List.*
+    //getCourseOfPersons(Cons(Teacher("diego", "italiano"), Nil())))), getCourseOfPersons(Cons(Teacher("giacomo", "math"), Cons(Teacher("fabri", "storia"), Cons(Student("mauro", 2021), Cons(Student("fabrizio", 2022) ,Cons(Teacher("diego", "italiano") ,Nil()))))))
 
-    println(sum(map(filter(l)(_ >= 20))(_ + 1))) // 21+31 = 52
