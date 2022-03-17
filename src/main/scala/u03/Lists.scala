@@ -15,16 +15,24 @@ object Lists extends App:
     def sum(l: List[Int]): Int = l match
       case Cons(h, t) => h + sum(t)
       case _ => 0
+      
+    def map[A, B](l: List[A])(mapper: A => B): List[B] = l match
+      case Cons(h, t) => Cons(mapper(h), map(t)(mapper))
+      case Nil() => Nil()
 
-    def map[A, B](l: List[A])(mapper: A => B): List[B] =
+    def filter[A](l1: List[A])(pred: A => Boolean): List[A] = l1 match
+      case Cons(h, t) if pred(h) => Cons(h, filter(t)(pred))
+      case Cons(_, t) => filter(t)(pred)
+      case Nil() => Nil()
+      
+    def mapWithFlatMap[A, B](l: List[A])(mapper: A => B): List[B] =
       flatMap(l)(v => Cons(mapper(v), Nil()))
 
-    def filter[A](l1: List[A])(pred: A => Boolean): List[A] =
-      /*case Cons(h, t) if pred(h) => Cons(h, filter(t)(pred))
-      case Cons(_, t) => filter(t)(pred)
-      case Nil() => Nil()*/
-      flatMap(l1)(v => if (pred(v)) Cons(v, Nil()) else Nil())
-
+    def filterWithFLatMap[A](l1: List[A])(pred: A => Boolean): List[A] =
+      flatMap(l1)({
+        case v if pred(v) => Cons(v, Nil())
+        case _ => Nil()  
+      })
 
     def drop[A](l: List[A], n: Int): List[A] = l match
       case Cons(h,t) if n > 0 => drop(t, n - 1)
@@ -53,16 +61,17 @@ object Lists extends App:
         case Teacher(name, course) => Cons(course, Nil())
         case _ => Nil()
       })
+    def foldLeft[A, B](l: List[A])(red: B)(f: (B, A) => B): B = (l, red) match
+      case (Cons(h, t), r) => foldLeft(t)(f(red, h))(f)
+      case (Nil(), r) => red
 
+    def foldRight[A, B](l: List[A])(red: B)(f: (A, B) => B): B = l match
+      case Cons(h, t) => f(h, foldRight(t)(red)(f))
+      case Nil() => red
 
+    import List.*
+    val l = List.Cons(10, List.Cons(20, List.Cons(30, List.Nil())))
 
-
-    //import List.*
-    //val l = List.Cons(10, List.Cons(20, List.Cons(30, List.Nil())))
-
-    //println(List.sum(l)) // 60
-
-    //println(sum(map(filter(l)(_ >= 20))(_ + 1))) // 21+31 = 52
-
-    //getCourseOfPersons(Cons(Teacher("diego", "italiano"), Nil())))), getCourseOfPersons(Cons(Teacher("giacomo", "math"), Cons(Teacher("fabri", "storia"), Cons(Student("mauro", 2021), Cons(Student("fabrizio", 2022) ,Cons(Teacher("diego", "italiano") ,Nil()))))))
+    println(List.sum(l)) // 60
+    println(sum(map(filter(l)(_ >= 20))(_ + 1))) // 21+31 = 52
 
